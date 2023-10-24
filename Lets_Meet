@@ -1,0 +1,89 @@
+-- Answer the questions from the Sales team in this file.
+
+
+-- Active Cities
+SELECT 
+    city, COUNT(member_status)
+FROM
+    grp_member
+WHERE
+    member_status = 'active'
+GROUP BY city
+ORDER BY city;
+SELECT 
+    *
+FROM
+    city
+ORDER BY city;
+/* 1. What cities have active members? 
+2. Are there any cities listed in the table with no active members? If so, what state are those cities in? 
+The following cities have active members: Chicago, Chicago Heights, Chicago Ridge, East Chicago, New York, North Chicago, San Francisco, West Chicago & West New York.
+The cities that do not have any active members are Chicago Park, NY Mills (NY) & NY Mills (MN). 
+The active members are mainly in big cities and populated areas. */
+
+-- Groups
+SELECT 
+    *
+FROM
+    grp;
+SELECT 
+    join_mode, COUNT(group_name)
+FROM
+    grp
+GROUP BY join_mode;
+/* There are 3,602 groups open, 723 groups waiting for approval and 15 groups that are closed*/ 
+
+-- Categories
+SELECT 
+    *
+FROM
+    category
+ORDER BY category_id;
+SELECT 
+    *
+FROM
+    grp
+ORDER BY category_id; 
+SELECT 
+    category_name, COUNT(group_name)
+FROM
+    category
+        JOIN
+    grp ON category.category_id = grp.category_id
+GROUP BY category_name
+ORDER BY COUNT(group_name) DESC
+LIMIT 5;
+SELECT 
+    category_name, COUNT(group_name)
+FROM
+    category
+        JOIN
+    grp ON category.category_id = grp.category_id
+GROUP BY category_name
+ORDER BY COUNT(group_name)
+LIMIT 5;
+/*The five categories that contains the most groups are Tech, Career & BUsiness, Socializing, Health & Wellbeing & Language & Ethnic Identity. Members are connecting far more 
+with these categories. 
+The five categories that contains the least number of groups are Paranormal, Cars & Motorcycles, SCI-FI & Fantasy, LIfestyle & Fashion & Beauty. These five seems to be the least
+popular amongst members. */
+
+-- Members
+SELECT 
+    *
+FROM
+    city;
+SELECT 
+    sum(member_count)
+FROM
+    city;
+SELECT DISTINCT
+    (state), SUM(member_count) state
+FROM
+    city
+WHERE
+    state = 'il'
+GROUP BY state; 
+SELECT (91395/382351)*100;
+/* There are 382,351 members in total and 24% of the members are from chicago. Chicago makes up at least a quarter of the members in Letsmeet.*/
+
+
